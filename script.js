@@ -17,6 +17,15 @@ var RecipeApp = function () {
     //id's for recipes
     var recId = 0;
 
+     var _findRecipesById = function (id) {
+        for (var i = 0; i < recipes.length; i += 1) {
+          if (recipes[i].id === id) {
+            return recipes[i];
+          }
+        }
+      }
+
+
     //id's for ingredients
     var ingId = 0;
 
@@ -33,10 +42,19 @@ var RecipeApp = function () {
 
         recipes.push(recipe);
     };
-
+    
+        
+             
     var createIngredients = function(){
-        //add code
-    };
+        var ingredientsNew= {
+                       text:text
+                     }
+                     var $createRecipe = $(currentRecipe).closest('.recipe');
+                     var id = $createRecipe.data().id;
+                     var recipe = _findRecipesById(id);
+                     recipe.ingredients.push(ingredientsNew);
+              }
+    
 
     var _getIngredients = function(recipe){
         //add code
@@ -62,7 +80,7 @@ var RecipeApp = function () {
                     '<h5 class="font-italic font-bold text-center">ingredients</h5>' +
                     '<div class="input-group mb-3">' +
                         '<div class="input-group-prepend">' +
-                            '<span class="add-ingredients input-group-text" id="basic-addon3">Add Ingredients</span>' +
+                            '<button class="add-ingredients input-group-text" id="basic-addon3">Add Ingredients</button>' +
                         '</div>' + 
                         '<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">' +
                         
@@ -76,7 +94,7 @@ var RecipeApp = function () {
     return {
         createRecipe: createRecipe,
         renderRecipes: renderRecipes,
-        // createIngredients: createIngredients
+        createIngredients: createIngredients
     }
 };
 
@@ -94,5 +112,17 @@ $('.add-recipe').on('click', function(){
     //add recipe to array and render
     app.createRecipe(name, image);
     app.renderRecipes();
+
+    
+  
 });
 
+$('.add-recipe').on('click','.add-ingredients', function(){
+    //add a Ingredients
+  var $clickedRecipe = $(this).closest('.recipe');
+//   here i stop my working
+  var text = $clickedPost.find("#basic-url").val();
+  app.createIngredients(this, text);
+  
+
+    });
