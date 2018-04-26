@@ -49,7 +49,7 @@ var RecipeApp = function () {
         var ingredientsNew= {
                        text:text
                      }
-                     var $createRecipe = $(currentRecipe).closest('.recipe');
+                     var $createRecipe = $(currentRecipe).closest('.recipe'); // currentRecipe is undefined here. It'sfrom a different function 
                      var id = $createRecipe.data().id;
                      var recipe = _findRecipesById(id);
                      recipe.ingredients.push(ingredientsNew);
@@ -121,7 +121,7 @@ $('.add-recipe').on('click','.add-ingredients', function(){
     //add a Ingredients
   var $clickedRecipe = $(this).closest('.recipe');
 //   here i stop my working
-  var text = $clickedPost.find("#basic-url").val();
+  var text = $clickedPost.find("#basic-url").val(); // Id should be uniq... you can not have more then one item with the same ID.
   app.createIngredients(this, text);
   
 
